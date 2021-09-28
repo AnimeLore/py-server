@@ -3,16 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Hi!</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="get.js"></script>
 </head>
 <body>
     <script>
-        console.log(getAllUrlParams());
+    $.ajax({
+	url: '/index.html',
+	method: 'get',
+	dataType: 'json',
+	data: {light: "status"},
+	success: function(data){
+	let status = "";
+	switch(data.result){
+	case 1:
+		status = "ВКЛЮЧЕНО"
+		break;
+	case 0:
+		status = "ВЫКЛЮЧЕНО"
+		break;
+}
+	$('#status').text(status);
+}
+});
+        function on(){
+	$.ajax({
+	url: '/index.html',
+	method: 'get',
+	dataType: 'json',
+	data: {light: "true"},
+	success: function(data){
+	$('#status').text('ВКЛЮЧЕНО');
+}})}
+       function off(){
+	$.ajax({
+	url: '/index.html',
+	method: 'get',
+	dataType: 'json',
+	data: {light: "false"},
+	success: function(data){
+	$('#status').text('ВЫКЛЮЧЕНО')
+}})}
+
 
     </script>
     <h1>Welcome! This is test page!</h1>
     <p style="font-size: 18px;">Nothing more, just this.</p>
     <hr>
-    <a href="abc/?get=this/">перейти туда</a>
+    <p>Статус лампочки сейчас: <b id="status"></b></p>
+    <button onclick="on();">Включить</button> /\ <button onclick="off();">Выключить</button>
 </body>
 </html>
