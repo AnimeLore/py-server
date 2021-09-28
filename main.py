@@ -8,8 +8,8 @@ try:
     rpi_import = True
 except ImportError:
     rpi_import = False
-from ext_check import ext_check
-from time import sleep
+from py_data.ext_check import ext_check
+from py_data.replace_check import dataReplace
 
 
 class myHandler(BaseHTTPRequestHandler):
@@ -68,9 +68,8 @@ class myHandler(BaseHTTPRequestHandler):
                                 out = True
                                 self.wfile.write(('{"result" :' + str(GPIO.input(23)) + '}').encode("UTF-8"))
                             # GPIO.cleanup()
-
             if out != True:
-                self.wfile.write(f.read())
+                self.wfile.write(dataReplace(f.read()))
             f.close()
             print(self.path)
 
@@ -78,7 +77,7 @@ class myHandler(BaseHTTPRequestHandler):
             self.send_error(404, 'File Not Found: %s' % self.path)
 
 
-address = ('192.168.11.131', 8800)
+address = ('localhost', 8800)
 http = HTTPServer(address, myHandler)
 
 http.serve_forever()
