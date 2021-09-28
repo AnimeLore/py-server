@@ -9,10 +9,17 @@
     padding: 15px;
     color: #ffffff;
 }
-
+body {
+    background : #3e3e3e;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+}
 .content {
     width:80%;
     margin-left: 10%;
     margin-right: 10%;
-    text-align
+    margin-top: 10px;
+    font-size: 24px;
+    color: #ffffff;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
 }
